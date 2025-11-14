@@ -10,12 +10,23 @@ for number in data1:
     elif number < 0:
         negativeCount += 1
 
+print("Exercise 1:")
 print(f"Positive number count: {positiveCount}")
-print(f"Negative number count: {negativeCount}")
+print(f"Negative number count: {negativeCount}\n")
 
 # Ex2: Given a list, extract all elements whose frequency is greater than k.
 data2 = [4, 6, 4, 3, 3, 4, 3, 4, 3, 8]
 k = 3
+
+solution = []
+for number in data2:
+    frequency = data2.count(number)
+
+    if frequency > k and number not in solution:
+        solution.append(number)
+
+print("Exercise 2:")
+print(f"Solution: {solution}")
 
 # Ex3: find the strongest neighbour. Given an array of N positive integers.
 # The task is to find the maximum for every adjacent pair in the array.
