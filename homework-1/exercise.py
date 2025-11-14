@@ -76,14 +76,32 @@ print(f"Solution: {data5_list1}\n")
 solution = ""
 for i in range(2000, 3201):
     if i % 7 ==0 and i % 5 !=0:
-        solution += f"{str(i)}, "
+        solution += f"{str(i)},"
 
 print("Exercise 6:")
 stripedSolution = solution.strip()
-print(f"Solution: {solution}")
+print(f"Solution: {stripedSolution}\n")
 
 # Ex7: Write a program, which will find all such numbers between 1000 and 3000 (both included) such that each digit of the number is an even number.
 # The numbers obtained should be printed in a comma-separated sequence on a single line.
+
+solution = ""
+
+def all_digit_even(number):
+    while number > 0:
+        if number % 2 != 0:
+            return False
+        number //= 10
+    return True
+
+for i in range(1000, 3001):
+    if all_digit_even(i):
+        solution += f"{str(i)},"
+    else:
+        continue
+
+print("Exercise 7:")
+print(f"Solution: {solution}\n")
 
 # Ex8: Let user type 2 words in English as input. Print out the output
 # which is the shortest chain according to the following rules:
