@@ -1,6 +1,18 @@
 # Ex1: Write a program to count positive and negative numbers in a list
 data1 = [-10, -21, -4, -45, -66, 93, 11, -4, -6, 12, 11, 4]
 
+positiveCount = 0
+negativeCount = 0
+
+for number in data1:
+    if number > 0:
+        positiveCount += 1
+    elif number < 0:
+        negativeCount += 1
+
+print(f"Positive number count: {positiveCount}")
+print(f"Negative number count: {negativeCount}")
+
 # Ex2: Given a list, extract all elements whose frequency is greater than k.
 data2 = [4, 6, 4, 3, 3, 4, 3, 4, 3, 8]
 k = 3
