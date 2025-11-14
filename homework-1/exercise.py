@@ -26,6 +26,7 @@ for number in data2:
         solution.append(number)
 
 print("Exercise 2:")
+print(f"Data2: {data2}")
 print(f"Solution: {solution}\n")
 
 # Ex3: find the strongest neighbour. Given an array of N positive integers.
@@ -40,10 +41,19 @@ for i in range(len(data3) - 1):
         solution.append(data3[i + 1])
 
 print("Exercise 3:")
+print(f"Data3: {data3}")
 print(f"Solution: {solution}\n")
 
 # Ex4: print all Possible Combinations from the three Digits
 data4 = [1, 2, 3]
+
+print("Exercise 4:")
+print(f"Data4: {data4}")
+for i in range (len(data4)):
+    for j in range (len(data4)):
+        for k in range (len(data4)):
+            if i!=j and j!=k and i!=k:
+                print (f"{data4[i], data4[j], data4[k]}")
 
 # Ex5: Given two matrices (2 nested lists), the task is to write a Python program
 # to add elements to each row from initial matrix.
@@ -55,8 +65,8 @@ data5_list2 = [[1, 3], [9, 3, 5, 7], [8]]
 for i in range(len(data5_list1) - 1):
     for j in range(len(data5_list2[i])):
         data5_list1[i].append(data5_list2[i][j])
-
-print("Exercise 4:")
+print("")
+print("Exercise 5:")
 print(f"Solution: {data5_list1}")
 
 
