@@ -67,12 +67,20 @@ for i in range(len(data5_list1) - 1):
         data5_list1[i].append(data5_list2[i][j])
 print("")
 print("Exercise 5:")
-print(f"Solution: {data5_list1}")
-
+print(f"Solution: {data5_list1}\n")
 
 # Ex6:  Write a program which will find all such numbers which are divisible by 7
 # but are not a multiple of 5, between 2000 and 3200 (both included).
 # The numbers obtained should be printed in a comma-separated sequence on a single line.
+
+solution = ""
+for i in range(2000, 3201):
+    if i % 7 ==0 and i % 5 !=0:
+        solution += f"{str(i)}, "
+
+print("Exercise 6:")
+stripedSolution = solution.strip()
+print(f"Solution: {solution}")
 
 # Ex7: Write a program, which will find all such numbers between 1000 and 3000 (both included) such that each digit of the number is an even number.
 # The numbers obtained should be printed in a comma-separated sequence on a single line.
