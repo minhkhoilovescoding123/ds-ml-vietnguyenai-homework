@@ -52,6 +52,14 @@ data4 = [1, 2, 3]
 data5_list1 = [[4, 3, 5, ], [1, 2, 3], [3, 7, 4]]
 data5_list2 = [[1, 3], [9, 3, 5, 7], [8]]
 
+for i in range(len(data5_list1) - 1):
+    for j in range(len(data5_list2[i])):
+        data5_list1[i].append(data5_list2[i][j])
+
+print("Exercise 4:")
+print(f"Solution: {data5_list1}")
+
+
 # Ex6:  Write a program which will find all such numbers which are divisible by 7
 # but are not a multiple of 5, between 2000 and 3200 (both included).
 # The numbers obtained should be printed in a comma-separated sequence on a single line.
