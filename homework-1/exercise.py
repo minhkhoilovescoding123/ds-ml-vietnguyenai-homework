@@ -26,11 +26,21 @@ for number in data2:
         solution.append(number)
 
 print("Exercise 2:")
-print(f"Solution: {solution}")
+print(f"Solution: {solution}\n")
 
 # Ex3: find the strongest neighbour. Given an array of N positive integers.
 # The task is to find the maximum for every adjacent pair in the array.
 data3 = [4, 5, 6, 7, 3, 9, 11, 2, 10]
+
+solution = []
+for i in range(len(data3) - 1):
+    if data3[i] > data3[i + 1]:
+        solution.append(data3[i])
+    else:
+        solution.append(data3[i + 1])
+
+print("Exercise 3:")
+print(f"Solution: {solution}\n")
 
 # Ex4: print all Possible Combinations from the three Digits
 data4 = [1, 2, 3]
