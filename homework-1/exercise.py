@@ -110,3 +110,72 @@ print(f"Solution: {solution}\n")
 # - 2 last letters of 1 word will be the same as 2 first letters of the next word in the chain
 # - All the words are from the file wordsEn.txt
 # - If there are multiple shortest chains, return any of them is sufficient
+
+from collections import deque
+
+def load_words(filename):
+    candidate_words = set()
+    for line in open(filename, encoding="utf-8"):
+        w = line.strip().lower()
+        if len(w) >= 3:
+            candidate_words.add(w)
+    return candidate_words
+
+def build_prefix_map(words):
+    prefix_map = {}
+    for word in words:
+        prefix = word[:2]
+        prefix_map[prefix].append(word)
+    return prefix_map
+
+def shortest_chain(start, goal, prefix_map):
+    start = start.lower()
+    goal = goal.lower()
+
+    if start == goal:
+        return [start] # Why?
+
+    queue = deque([start])
+    visited = set(start)
+    parent = {start: None}
+
+    while queue:
+        current = queue.popleft()
+        suffix = current[-2:] # Last 2 letters of the current word
+        candidates = prefix_map.get(suffix, [])
+
+        for nxt in candidates:
+            if nxt not in visited:
+                visited.add(nxt)
+                parent[nxt] = current
+                queue.append(nxt)
+
+                if nxt == goal:
+                    # We reached the goal, reconstruct path
+                    chain = []
+                    w = goal
+                    while w is not None:
+                        chain.append(w)
+                        w = parent[w]
+                    chain.reverse()
+                    return chain
+    # If we exit the loop, there is no path
+    return None
+
+def main():
+    words = load_words("wordsEn.txt")
+    prefix_map = build_prefix_map(words)
+
+    start = input("Enter start word: ").strip().lower()
+    goal = input("Enter goal word: ").strip().lower()
+    chain = shortest_chain(start, goal, prefix_map)
+
+    if chain is None:
+        print("No chain")
+    else:
+        print("The shortest chain is:")
+        for word in chain:
+            print(word)
+
+if __name__ == "__main__":
+    main()
