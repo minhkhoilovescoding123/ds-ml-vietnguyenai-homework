@@ -1,4 +1,9 @@
+from collections import deque, defaultdict
+
 # Ex1: Write a program to count positive and negative numbers in a list
+# =========================
+# Exercise 1: Write a program to count positive and negative numbers in a list
+# =========================
 data1 = [-10, -21, -4, -45, -66, 93, 11, -4, -6, 12, 11, 4]
 
 positiveCount = 0
@@ -111,29 +116,41 @@ print(f"Solution: {solution}\n")
 # - All the words are from the file wordsEn.txt
 # - If there are multiple shortest chains, return any of them is sufficient
 
-from collections import deque
 
-def load_words(filename):
+def load_words(filename, limit=57000):
     candidate_words = set()
+    count = 0
     for line in open(filename, encoding="utf-8"):
         w = line.strip().lower()
         if len(w) >= 3:
             candidate_words.add(w)
+            count += 1
+        if count >= limit:
+            break
     return candidate_words
 
 def build_prefix_map(words):
-    prefix_map = {}
+    prefix_map = defaultdict(list)
     for word in words:
         prefix = word[:2]
         prefix_map[prefix].append(word)
     return prefix_map
+
+def build_chain (parent, goal):
+    chain = []
+    w = goal
+    while w is not None:
+        chain.append(w)
+        w = parent[w]
+    chain.reverse()
+    return chain
 
 def shortest_chain(start, goal, prefix_map):
     start = start.lower()
     goal = goal.lower()
 
     if start == goal:
-        return [start] # Why?
+        return [start]
 
     queue = deque([start])
     visited = set(start)
@@ -145,29 +162,46 @@ def shortest_chain(start, goal, prefix_map):
         candidates = prefix_map.get(suffix, [])
 
         for nxt in candidates:
-            if nxt not in visited:
-                visited.add(nxt)
-                parent[nxt] = current
-                queue.append(nxt)
+            if nxt in visited:
+                continue
 
-                if nxt == goal:
-                    # We reached the goal, reconstruct path
-                    chain = []
-                    w = goal
-                    while w is not None:
-                        chain.append(w)
-                        w = parent[w]
-                    chain.reverse()
-                    return chain
+            visited.add(nxt)
+            parent[nxt] = current
+
+            if nxt == goal:
+                return build_chain(parent, goal)
+            queue.append(nxt)
     # If we exit the loop, there is no path
     return None
 
 def main():
-    words = load_words("wordsEn.txt")
+    # words = load_words("wordsEn.txt") # Memory error
+    words = {
+        "pen",
+        "encroach",
+        "chutzpa",
+        "paper",
+        "enter",
+        "end",
+        "panda",
+        "pencil",
+        "party",
+        "pearl",
+        "early",
+    }
     prefix_map = build_prefix_map(words)
 
     start = input("Enter start word: ").strip().lower()
     goal = input("Enter goal word: ").strip().lower()
+
+    if len(start) < 3 or len(goal) < 3:
+        print("Words must have at least 3 letters.")
+        return
+
+    if start not in words or goal not in words:
+        print("Start or goal word is not in the dictionary file.")
+        return
+
     chain = shortest_chain(start, goal, prefix_map)
 
     if chain is None:
